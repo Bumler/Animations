@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JSplitPane;
 
 public class MainApp extends JFrame {
 
@@ -23,6 +24,7 @@ public class MainApp extends JFrame {
 				try {
 					MainApp frame = new MainApp();
 					frame.setVisible(true);
+					//frame.setSize(500, 800);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -43,7 +45,7 @@ public class MainApp extends JFrame {
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.EAST);
-		panel.setLayout(new GridLayout(10, 1, 0, 0));
+		panel.setLayout(new GridLayout(10, 3, 0, 0));
 		
 		JButton btnNewButton = new JButton("Empeza");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -71,6 +73,28 @@ public class MainApp extends JFrame {
 		
 		panel_1 = new AnimationPanel();
 		contentPane.add(panel_1, BorderLayout.CENTER);
+		
+		JPanel panel_7 = new JPanel();
+		contentPane.add(panel_7, BorderLayout.SOUTH);
+		
+		JSplitPane splitPane = new JSplitPane();
+		panel_7.add(splitPane);
+		
+		JButton leftBtn = new JButton("<--");
+		leftBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel_1.moveLeft();
+			}
+		});
+		splitPane.setLeftComponent(leftBtn);
+		
+		JButton rightBtn = new JButton("-->");
+		rightBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel_1.moveRight();
+			}
+		});
+		splitPane.setRightComponent(rightBtn);
 	}
 
 }

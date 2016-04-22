@@ -51,6 +51,11 @@ public class Ball {
 		return y;
 	}
 	
+	public int[] getPosition(){
+		int[] cords = {x , y};
+		return cords;
+	}
+	
 	public void render(Graphics g2d){
 		g2d.setColor(c);
 		g2d.fillOval(x - radius, y - radius, 2*radius, 2*radius);

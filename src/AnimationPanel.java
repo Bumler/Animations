@@ -17,6 +17,7 @@ public class AnimationPanel extends JPanel {
 	private Explosion explo;
 	Random rn = new Random();
 	private Ball ball;
+	private Brick test;
 	boolean firstTime = true;
 	Point p = new Point(vx, vy);
 	
@@ -25,13 +26,21 @@ public class AnimationPanel extends JPanel {
 	 */
 	public AnimationPanel() {
 		
-		timer = new Timer(1, new ActionListener(){
-
+		test = new Brick (50,50, 20);
+		
+		timer = new Timer(20, new ActionListener(){
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Henry is a cool guy");
 				ball.move(p); 
 				explo.step();
+				//System.out.println(ball.getY());
+				if (test.collide(ball.getPosition(),vy*5)){
+					System.out.println("hit");
+					vx = -vx;
+					vy = -vy;
+					p = new Point (vx, vy);
+				}
 				
 				repaint();
 			}}
@@ -41,6 +50,7 @@ public class AnimationPanel extends JPanel {
 	public void Start(){
 		vx = rn.nextInt(10) - 5;
 		vy = rn.nextInt(10) - 5;
+		System.out.println(vy);
 		p = new Point(vx,vy);
 		timer.start();
 	}
@@ -51,6 +61,14 @@ public class AnimationPanel extends JPanel {
 	
 	public void explode(){
 		explo.explode(ball.getX(), ball.getY());
+	}
+	
+	public void moveLeft(){
+		test.moveLeft();
+	}
+	
+	public void moveRight(){
+		test.moveRight();
 	}
 
 	public void paint (Graphics g){
@@ -68,6 +86,7 @@ public class AnimationPanel extends JPanel {
 			explo = new Explosion(h,w);
 			firstTime = false;
 		}
+		test.render(g2d);
 		ball.render(g2d);
 		explo.render(g2d);
 	}

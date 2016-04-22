@@ -29,42 +29,42 @@ public class Explosion {
 				}
 			}
 	
-		int numBalls = 25;
-		int it = 0;
-		System.out.println(it);
-		//for the north and south orientations
-			for (int i = -100; i < 1; i+= numBalls){
-				Ball b = new Ball(2, Color.RED, h,w,xIn + 0,yIn + i);
-				explodeList.get(it).add(b);
-				explodeList.get(it + 4).add(b);
-			}
-			
-		//for the north east and south west orientations
-		it++;
-		System.out.println(it);
-			for (int i = -100; i < 1; i+= numBalls){
-				Ball b = new Ball(2, Color.RED, h,w,xIn - i,yIn + i);
-				explodeList.get(it).add(b);
-				explodeList.get(it + 4).add(b);
-			}
-			
-		//for the east and west orientations
-		it++;
-		System.out.println(it);
-			for (int i = -100; i < 1; i+= numBalls){
-				Ball b = new Ball(2, Color.RED, h,w,xIn + i,yIn + 0);
-				explodeList.get(it).add(b);
-				explodeList.get(it + 4).add(b);
-			}
-			
-		//for the south east and north west orientations
-		it++;
-		System.out.println(it);
-			for (int i = -100; i < 1; i+= numBalls){
-				Ball b = new Ball(2, Color.RED, h,w,xIn + i,yIn + i);
-				explodeList.get(it).add(b);
-				explodeList.get(it + 4).add(b);
-			}
+//		int numBalls = 25;
+//		int it = 0;
+//		System.out.println(it);
+//		//for the north and south orientations
+//			for (int i = -100; i < 1; i+= numBalls){
+//				Ball b = new Ball(2, Color.RED, h,w,xIn + 0,yIn + i);
+//				explodeList.get(it).add(b);
+//				explodeList.get(it + 4).add(b);
+//			}
+//			
+//		//for the north east and south west orientations
+//		it++;
+//		System.out.println(it);
+//			for (int i = -100; i < 1; i+= numBalls){
+//				Ball b = new Ball(2, Color.RED, h,w,xIn - i,yIn + i);
+//				explodeList.get(it).add(b);
+//				explodeList.get(it + 4).add(b);
+//			}
+//			
+//		//for the east and west orientations
+//		it++;
+//		System.out.println(it);
+//			for (int i = -100; i < 1; i+= numBalls){
+//				Ball b = new Ball(2, Color.RED, h,w,xIn + i,yIn + 0);
+//				explodeList.get(it).add(b);
+//				explodeList.get(it + 4).add(b);
+//			}
+//			
+//		//for the south east and north west orientations
+//		it++;
+//		System.out.println(it);
+//			for (int i = -100; i < 1; i+= numBalls){
+//				Ball b = new Ball(2, Color.RED, h,w,xIn + i,yIn + i);
+//				explodeList.get(it).add(b);
+//				explodeList.get(it + 4).add(b);
+//			}
 	}
 	
 	public void step (){
@@ -74,7 +74,7 @@ public class Explosion {
 		xPos = 0;
 		yPos = -10;
 		it++;
-		System.out.println(explodeList.get(it).size());
+
 		for (Ball b : explodeList.get(it)){
 			b.move(new Point(xPos, yPos));
 		}
