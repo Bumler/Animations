@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JPanel;
@@ -19,9 +20,13 @@ public class AnimationPanel extends JPanel {
 	//private Explosion explo;
 	Random rn = new Random();
 	//private Ball ball;
-	private Brick paddle;
+	private Brick paddle = new Brick (125, 285, 35, Color.BLUE);
 	boolean firstTime = true;
 	Point p = new Point(vx, vy);
+	ArrayList<Brick> brickList = new ArrayList<Brick>();
+	
+	//this a count of how many bricks have been destroyed
+	int cleared = 0;
 	
 	private Ball ball = new Ball(5, Color.BLUE, 314, 245);
 	private Explosion explo = new Explosion(314, 245);
@@ -60,7 +65,7 @@ public class AnimationPanel extends JPanel {
 			
 		});
 		
-		paddle = new Brick (50,50, 20);
+		//paddle = new Brick (50,50, 20);
 		
 		timer = new Timer(50, new ActionListener(){
 			
@@ -68,27 +73,53 @@ public class AnimationPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				ball.move(); 
 				explo.step();
-				//System.out.println(ball.getY());
 				if (paddle.collide(ball.getPosition(),(Math.abs(vy)/2))){
 					System.out.println("hit");
 					ball.flipY();
-					explode();
-					//vy = -(vy);
-					//p = new Point (vx, vy);
 				}
 				
+				for (Brick br : brickList){
+					if (br.collide(ball.getPosition(),(Math.abs(vy)/2))){
+						System.out.println("hit");
+						ball.flipY();
+						explode();
+						br.destroy();
+						cleared++;
+					}
+				}
+				
+				if (cleared == 12){
+					nextLevel();
+				}
 				repaint();
 			}}
 				);
 	}
 	
 	public void Start(){
-		vx = rn.nextInt(10) - 5;
-		vy = rn.nextInt(10) - 5;
+		vx = rn.nextInt(6) - 3;
+		while (vx == 0){
+			vx = rn.nextInt(6) - 3;
+		}
+		vy = 5;
 		System.out.println(vy);
 		p = new Point(vx,vy);
 		ball.setVelocity(p);
 		timer.start();
+	}
+	
+	public void nextLevel(){
+		ball.setPosition(125, 180);
+		vx = rn.nextInt(6) - 3;
+		while (vx == 0){
+			vx = rn.nextInt(6) - 3;
+		}
+		vy += 5;
+		p = new Point(vx,vy);
+		ball.setVelocity(p);
+		
+		cleared = 0;
+		createBricks();
 	}
 	
 	public void Stop(){
@@ -107,6 +138,15 @@ public class AnimationPanel extends JPanel {
 		paddle.moveRight();
 	}
 
+	public void createBricks(){
+		for (int i = 15; i <= 55; i += 20){
+			for (int j = 30; j <= 210; j+= 60){
+				Brick br = new Brick(j, i, 20);
+				brickList.add(br);
+			}
+		}
+	}
+	
 	public void paint (Graphics g){
 		super.paint(g);
 		Graphics2D g2d = (Graphics2D)g;
@@ -114,18 +154,23 @@ public class AnimationPanel extends JPanel {
 		h = getHeight();
 		w = getWidth();
 		
-		System.out.println("Height "+h+"Width "+w);
+		System.out.println(cleared);
 		
 		g2d.setColor(Color.BLACK);
 		g2d.drawRect(0, 0, w-1, h-1);
 		
-//		if (firstTime){
-//			ball = new Ball(5, Color.BLUE, this.getHeight(), this.getWidth());
-//			explo = new Explosion(h,w);
-//			firstTime = false;
-//		}
+		if (firstTime){
+			//we could set height and width diagonally here if we'd like
+			createBricks();		
+			ball.setPosition(125, 150);
+			
+			firstTime = false;
+		}
 		paddle.render(g2d);
 		ball.render(g2d);
+		for (Brick br : brickList){
+			br.render(g2d);
+		}
 		explo.render(g2d);
 	}
 }

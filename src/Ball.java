@@ -37,6 +37,11 @@ public class Ball {
 		v = vIn;
 	}
 	
+	public void setPosition(int xIn, int yIn){
+		x = xIn;
+		y = yIn;
+	}
+	
 	public void move(){
 		x += v.x;
 		y += v.y;		//this detects collision		
