@@ -8,6 +8,7 @@ public class Ball {
 	private int radius;
 	private int h,w;
 	Color c;
+	Point v;
 	
 	public Ball (int radiusIn, Color c, int height, int width){
 		radius = radiusIn;
@@ -32,15 +33,25 @@ public class Ball {
 		y = startY;
 	}
 	
-	public void move(Point v){
+	public void setVelocity(Point vIn){
+		v = vIn;
+	}
+	
+	public void move(){
 		x += v.x;
-		y += v.y;
-		
-		//this detects collision		
+		y += v.y;		//this detects collision		
 		if((x<radius) || (x>w-radius)) 
-			{v.x = -(v.x);}
-		if((y<radius) || (y>h-radius)) 
-			{v.y = -(v.y);}
+		{flipX();}
+	if((y<radius) || (y>h-radius)) 
+		{flipY();}
+	}
+	
+	public void flipX(){
+		v.x = -(v.x);
+	}
+	
+	public void flipY(){
+		v.y = - (v.y);
 	}
 	
 	public int getX(){

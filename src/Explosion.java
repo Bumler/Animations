@@ -76,7 +76,8 @@ public class Explosion {
 		it++;
 
 		for (Ball b : explodeList.get(it)){
-			b.move(new Point(xPos, yPos));
+			b.setVelocity(new Point(xPos,yPos));
+			b.move();
 		}
 		
 		//this is for the north east column
@@ -84,7 +85,8 @@ public class Explosion {
 		yPos = -10;
 		it++;
 		for (Ball b : explodeList.get(it)){
-			b.move(new Point(xPos,yPos));
+			b.setVelocity(new Point(xPos,yPos));
+			b.move();
 		}
 		
 		//this is for the east column
@@ -92,7 +94,8 @@ public class Explosion {
 		yPos = 0;
 		it++;
 		for (Ball b : explodeList.get(it)){
-			b.move(new Point(xPos,yPos));
+			b.setVelocity(new Point(xPos,yPos));
+			b.move();
 		}
 		
 		//this is for the south east column
@@ -100,7 +103,8 @@ public class Explosion {
 		yPos = 10;
 		it++;
 		for (Ball b : explodeList.get(it)){
-			b.move(new Point(xPos,yPos));
+			b.setVelocity(new Point(xPos,yPos));
+			b.move();
 		}
 		
 		//this is for the south column
@@ -108,7 +112,8 @@ public class Explosion {
 		yPos = 10;
 		it++;
 		for (Ball b : explodeList.get(it)){
-			b.move(new Point(xPos,yPos));
+			b.setVelocity(new Point(xPos,yPos));
+			b.move();
 		}
 		
 		//this is for the south west column
@@ -116,7 +121,8 @@ public class Explosion {
 		yPos = 10;
 		it++;
 		for (Ball b : explodeList.get(it)){
-			b.move(new Point(xPos,yPos));
+			b.setVelocity(new Point(xPos,yPos));
+			b.move();
 		}
 		
 		//this is for the west column
@@ -124,7 +130,8 @@ public class Explosion {
 		yPos = 0;
 		it++;
 		for (Ball b : explodeList.get(it)){
-			b.move(new Point(xPos,yPos));
+			b.setVelocity(new Point(xPos,yPos));
+			b.move();
 		}
 		
 		//this is for the north west and final column
@@ -132,7 +139,8 @@ public class Explosion {
 		yPos = -10;
 		it++;
 		for (Ball b : explodeList.get(it)){
-			b.move(new Point(xPos,yPos));
+			b.setVelocity(new Point(xPos,yPos));
+			b.move();
 		}
 	}
 	

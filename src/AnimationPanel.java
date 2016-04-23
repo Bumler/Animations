@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Random;
 
 import javax.swing.JPanel;
@@ -14,32 +16,65 @@ public class AnimationPanel extends JPanel {
 	int vx,vy,h,w;
 	
 	public Timer timer;
-	private Explosion explo;
+	//private Explosion explo;
 	Random rn = new Random();
-	private Ball ball;
-	private Brick test;
+	//private Ball ball;
+	private Brick paddle;
 	boolean firstTime = true;
 	Point p = new Point(vx, vy);
+	
+	private Ball ball = new Ball(5, Color.BLUE, 314, 245);
+	private Explosion explo = new Explosion(314, 245);
 	
 	/**
 	 * Create the panel.
 	 */
 	public AnimationPanel() {
 		
-		test = new Brick (50,50, 20);
+		this.addMouseListener(new MouseListener(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int x = e.getX();
+				paddle.moveTo(x);
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+			
+		});
 		
-		timer = new Timer(20, new ActionListener(){
+		paddle = new Brick (50,50, 20);
+		
+		timer = new Timer(50, new ActionListener(){
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ball.move(p); 
+				ball.move(); 
 				explo.step();
 				//System.out.println(ball.getY());
-				if (test.collide(ball.getPosition(),vy*5)){
+				if (paddle.collide(ball.getPosition(),(Math.abs(vy)/2))){
 					System.out.println("hit");
-					vx = -vx;
-					vy = -vy;
-					p = new Point (vx, vy);
+					ball.flipY();
+					explode();
+					//vy = -(vy);
+					//p = new Point (vx, vy);
 				}
 				
 				repaint();
@@ -52,6 +87,7 @@ public class AnimationPanel extends JPanel {
 		vy = rn.nextInt(10) - 5;
 		System.out.println(vy);
 		p = new Point(vx,vy);
+		ball.setVelocity(p);
 		timer.start();
 	}
 	
@@ -64,11 +100,11 @@ public class AnimationPanel extends JPanel {
 	}
 	
 	public void moveLeft(){
-		test.moveLeft();
+		paddle.moveLeft();
 	}
 	
 	public void moveRight(){
-		test.moveRight();
+		paddle.moveRight();
 	}
 
 	public void paint (Graphics g){
@@ -77,16 +113,18 @@ public class AnimationPanel extends JPanel {
 		
 		h = getHeight();
 		w = getWidth();
-			
+		
+		System.out.println("Height "+h+"Width "+w);
+		
 		g2d.setColor(Color.BLACK);
 		g2d.drawRect(0, 0, w-1, h-1);
 		
-		if (firstTime){
-			ball = new Ball(5, Color.BLUE, this.getHeight(), this.getWidth());
-			explo = new Explosion(h,w);
-			firstTime = false;
-		}
-		test.render(g2d);
+//		if (firstTime){
+//			ball = new Ball(5, Color.BLUE, this.getHeight(), this.getWidth());
+//			explo = new Explosion(h,w);
+//			firstTime = false;
+//		}
+		paddle.render(g2d);
 		ball.render(g2d);
 		explo.render(g2d);
 	}
