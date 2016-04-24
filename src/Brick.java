@@ -8,6 +8,7 @@ public class Brick {
 	//The default color in Brick is black but if a color is added to the constructor it can be changed
 	int x,y,width;
 	Color c = Color.BLACK;
+	boolean destroyed = false;
 	public Brick(int xIn, int yIn, int widthIn){
 		x = xIn;
 		y = yIn;
@@ -21,9 +22,11 @@ public class Brick {
 	}
 	
 	public boolean collide (int[] cords, int jump){
-		if (cords[1] <= y + jump && cords[1] >= y -jump){
-			if (cords[0] >= x - width && cords[0] <= x+ width){
-				return true;
+		if (!destroyed){
+			if (cords[1] <= y + jump && cords[1] >= y - jump) {
+				if (cords[0] >= x - width && cords[0] <= x + width) {
+					return true;
+				}
 			}
 		}
 		return false;
@@ -43,6 +46,7 @@ public class Brick {
 	
 	public void destroy(){
 		width = 0;
+		destroyed = true;
 	}
 	
 	public void render(Graphics2D g2d){

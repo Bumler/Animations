@@ -9,11 +9,13 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JSplitPane;
+import javax.swing.JTextField;
 
 public class MainApp extends JFrame {
 
 	private JPanel contentPane;
 	private AnimationPanel panel_1 = new AnimationPanel();
+	private JTextField levelText;
 
 	/**
 	 * Launch the application.
@@ -56,7 +58,7 @@ public class MainApp extends JFrame {
 		});
 		panel.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Detene");
+		JButton btnNewButton_1 = new JButton("Pausa");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel_1.Stop();
@@ -64,13 +66,13 @@ public class MainApp extends JFrame {
 		});
 		panel.add(btnNewButton_1);
 		
-		JButton btnExplota = new JButton("Explota");
-		btnExplota.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				panel_1.explode();
-			}
-		});
-		panel.add(btnExplota);
+		JPanel panel_2 = new JPanel();
+		panel.add(panel_2);
+		
+		levelText = new JTextField();
+		levelText.setText("Level:             1");
+		panel.add(levelText);
+		levelText.setColumns(10);
 		
 		panel_1 = new AnimationPanel();
 		contentPane.add(panel_1, BorderLayout.CENTER);
@@ -98,4 +100,5 @@ public class MainApp extends JFrame {
 		splitPane.setRightComponent(rightBtn);
 	}
 
+	
 }

@@ -110,7 +110,7 @@ public class AnimationPanel extends JPanel {
 	
 	public void nextLevel(){
 		ball.setPosition(125, 180);
-		vx = rn.nextInt(6) - 3;
+		vx = rn.nextInt(8) - 3;
 		while (vx == 0){
 			vx = rn.nextInt(6) - 3;
 		}
