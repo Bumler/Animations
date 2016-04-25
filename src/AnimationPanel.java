@@ -20,7 +20,8 @@ public class AnimationPanel extends JPanel {
 	//private Explosion explo;
 	Random rn = new Random();
 	//private Ball ball;
-	private Brick paddle = new Brick (125, 285, 35, Color.BLUE);
+	private Brick paddle = new Brick (120, 285, 35, Color.BLUE);
+	private Brick floor = new Brick (120, 312, 122, Color.RED);
 	boolean firstTime = true;
 	Point p = new Point(vx, vy);
 	ArrayList<Brick> brickList = new ArrayList<Brick>();
@@ -76,6 +77,11 @@ public class AnimationPanel extends JPanel {
 				if (paddle.collide(ball.getPosition(),(Math.abs(vy)/2))){
 					System.out.println("hit");
 					ball.flipY();
+				}
+				
+				if (floor.collide(ball.getPosition(),(Math.abs(vy)/2))){
+					System.out.println("HIIIIIIT");
+					ball.setPosition(125, 180);
 				}
 				
 				for (Brick br : brickList){
@@ -153,7 +159,7 @@ public class AnimationPanel extends JPanel {
 		
 		h = getHeight();
 		w = getWidth();
-		
+		System.out.println(w);
 		System.out.println(cleared);
 		
 		g2d.setColor(Color.BLACK);
@@ -168,6 +174,7 @@ public class AnimationPanel extends JPanel {
 		}
 		paddle.render(g2d);
 		ball.render(g2d);
+		floor.render(g2d);
 		for (Brick br : brickList){
 			br.render(g2d);
 		}

@@ -25,7 +25,7 @@ public class MainApp extends JFrame {
 			public void run() {
 				try {
 					MainApp frame = new MainApp();
-					frame.setSize(350, 400);
+					frame.setSize(380, 400);
 					frame.setVisible(true);
 					
 				} catch (Exception e) {
