@@ -14,8 +14,11 @@ import javax.swing.JTextField;
 public class MainApp extends JFrame {
 
 	private JPanel contentPane;
-	private AnimationPanel panel_1 = new AnimationPanel();
+	private AnimationPanel panel_1 = new AnimationPanel(this);
 	private JTextField levelText;
+	private JTextField txtLives;
+	private boolean firstPress = true;
+	private MainApp thisApp = this;
 
 	/**
 	 * Launch the application.
@@ -54,6 +57,7 @@ public class MainApp extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				panel_1.Start();
+				btnNewButton.setText("Continua");
 			}
 		});
 		panel.add(btnNewButton);
@@ -66,6 +70,14 @@ public class MainApp extends JFrame {
 		});
 		panel.add(btnNewButton_1);
 		
+		JButton newGameBtn = new JButton("Nuevo");
+		newGameBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panel_1.reset();
+			}
+		});
+		panel.add(newGameBtn);
+		
 		JPanel panel_2 = new JPanel();
 		panel.add(panel_2);
 		
@@ -74,7 +86,12 @@ public class MainApp extends JFrame {
 		panel.add(levelText);
 		levelText.setColumns(10);
 		
-		panel_1 = new AnimationPanel();
+		txtLives = new JTextField();
+		txtLives.setText("Lives:              3");
+		panel.add(txtLives);
+		txtLives.setColumns(10);
+		
+		panel_1 = new AnimationPanel(this);
 		contentPane.add(panel_1, BorderLayout.CENTER);
 		
 		JPanel panel_7 = new JPanel();
@@ -100,5 +117,16 @@ public class MainApp extends JFrame {
 		splitPane.setRightComponent(rightBtn);
 	}
 
+	public void setLevel(int level){
+		txtLives.setText("Level:             "+level);
+	}
+	
+	public void setLevel(String winner){
+		txtLives.setText(winner);
+	}
+	
+	public void setLives(int lives){
+		txtLives.setText("Lives:              "+lives);
+	}
 	
 }
